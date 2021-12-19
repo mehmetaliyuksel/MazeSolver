@@ -4,8 +4,7 @@ public class BreadthFirstSearch {
     private Maze maze;
     private Queue<Node> frontier;
     private Set<Node> explored;
-    private int totalCost;
-    private String optimalPath;
+    private StringBuilder optimalPath;
 
     public BreadthFirstSearch(Maze maze) {
         this.frontier = new LinkedList<Node>();
@@ -13,19 +12,21 @@ public class BreadthFirstSearch {
     }
 
     public void search(Node node) {
-        totalCost = 0;
         while (!frontier.isEmpty()) {
             Node currentNode = frontier.remove();
             currentNode.setVisited(true);
-            optimalPath += ("(" + currentNode.getState().getX() + "," + currentNode.getState().getY() + ") - ");
-            calculateCost(currentNode);
-            if(currentNode.getState().getType().equals(TileType.GOAL)) {
-                break;
-            }
             generateChildren(currentNode);
             addChildrenToFrontier(currentNode);
+
+            optimalPath.append("(" + currentNode.getState().getX() + "," + currentNode.getState().getY() + ") - ");
+
+            calculateCost(currentNode);
+            if (currentNode.getState().getType().equals(TileType.GOAL)) {
+                break;
+            }
+
         }
-        System.out.println("The cost of the solution found is : " + totalCost);
+
     }
 
     private void generateChildren(Node currentNode) {
@@ -60,22 +61,17 @@ public class BreadthFirstSearch {
     }
 
     private void calculateCost(Node currentNode) {
-        if ( currentNode.getState().getType().equals(TileType.BONUS))
-        {
-            totalCost += -8;
-        } else {
-            totalCost += 1;
-        }
+        if (currentNode.getState().getType().equals(TileType.BONUS))
+            currentNode.increasePathCost(-8);
+        else
+            currentNode.increasePathCost(1);
+
     }
 
     private void initializeSearch() {
         Node rootNode = new Node(null, 0, maze.getStartingTile());
-        rootNode.setPathCost(0);
         rootNode.setVisited(true);
         frontier.add(rootNode);
     }
 
-    public int costCalculation() {
-        return 0;
-    }
 }

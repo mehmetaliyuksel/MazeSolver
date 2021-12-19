@@ -3,17 +3,16 @@ import java.util.ArrayList;
 public class Node {
     private Node parent;
     private ArrayList<Node> children;
+    private Tile state;
     private int depth;
+    private int pathCost;
+    private boolean visited;
 
     public Node(Node parent, int depth, Tile state) {
         this.parent = parent;
         this.depth = depth;
         this.state = state;
     }
-
-    private int pathCost;
-    private Tile state;
-    private boolean visited;
 
     public Node getParent() {
         return parent;
@@ -39,12 +38,8 @@ public class Node {
         this.depth = depth;
     }
 
-    public int getPathCost() {
-        return pathCost;
-    }
-
-    public void setPathCost(int pathCost) {
-        this.pathCost = pathCost;
+    public void increasePathCost(int cost) {
+        this.pathCost += cost;
     }
 
     public Tile getState() {
@@ -62,8 +57,6 @@ public class Node {
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
-
-
 
 
 }
