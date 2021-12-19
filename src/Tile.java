@@ -1,4 +1,6 @@
-
+// state : tile
+// action
+// action (tile): List<action>
 
 public class Tile {
 
