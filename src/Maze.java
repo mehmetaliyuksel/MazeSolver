@@ -29,14 +29,6 @@ public class Maze {
         this.goalTile = goalTile;
     }
 
-    public Tile getBonusTile() {
-        return bonusTile;
-    }
-
-    public void setBonusTile(Tile bonusTile) {
-        this.bonusTile = bonusTile;
-    }
-
     public Tile[][] getTiles() {
         return tiles;
     }
