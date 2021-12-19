@@ -1,0 +1,5 @@
+2,2
+false,true,false,false,STARTING
+false,true,false,false,GOAL
+true,false,false,true,STANDARD
+false,false,true,true,BONUS

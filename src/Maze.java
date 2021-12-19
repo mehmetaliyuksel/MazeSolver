@@ -1,18 +1,13 @@
-
 public class Maze {
     private Tile startingTile;
     private Tile goalTile;
-    private Tile bonusTile;
     private Tile[][] tiles;
 
-    public Maze(Tile startingTile, Tile goalTile, Tile bonusTile, int numOfRows, int numOfColumns) {
+    public Maze(Tile startingTile, Tile goalTile, Tile[][] tiles) {
         this.startingTile = startingTile;
         this.goalTile = goalTile;
-        this.bonusTile = bonusTile;
-        this.tiles = new Tile[numOfRows][numOfColumns];
-
+        this.tiles = tiles;
     }
-
 
     public int getMazeSize() {
         return tiles[0].length * tiles.length;
