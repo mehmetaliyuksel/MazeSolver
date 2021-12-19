@@ -2,14 +2,20 @@
 
 public class Tile {
 
-    private final int x;
-    private final int y;
-    private final TileType type;
+    private int x;
+    private int y;
+    private TileType type;
 
-    private final Tile east;
-    private final Tile south;
-    private final Tile west;
-    private final Tile north;
+    private Tile east;
+    private Tile south;
+    private Tile west;
+    private Tile north;
+
+    public Tile(int x, int y, TileType type){
+        this.type = type;
+        this.x = x;
+        this.y = y;
+    }
 
     public Tile(int x, int y, TileType type, Tile east, Tile south, Tile west, Tile north) {
         this.x = x;
@@ -47,5 +53,21 @@ public class Tile {
 
     public Tile getNorth() {
         return north;
+    }
+
+    public void setEast(Tile east) {
+        this.east = east;
+    }
+
+    public void setSouth(Tile south) {
+        this.south = south;
+    }
+
+    public void setWest(Tile west) {
+        this.west = west;
+    }
+
+    public void setNorth(Tile north) {
+        this.north = north;
     }
 }
