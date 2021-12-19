@@ -66,11 +66,14 @@ public class IOManager {
                     rowCounter++;
                 }
             }
+            scanner.close();
             return new Maze(startingTile, goalTile, tiles);
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
             return null;
         }
+
     }
 }

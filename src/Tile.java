@@ -13,6 +13,9 @@ public class Tile {
     private Tile west;
     private Tile north;
 
+    private boolean visited;
+
+
     public Tile(int x, int y, TileType type){
         this.type = type;
         this.x = x;
@@ -72,4 +75,13 @@ public class Tile {
     public void setNorth(Tile north) {
         this.north = north;
     }
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    
 }
