@@ -1,0 +1,10 @@
+3,3
+true,true,false,false,STARTING
+true,false,true,false,TRAP
+false,true,true,false,TRAP
+true,true,false,true,STANDARD
+true,false,true,false,STANDARD
+false,true,true,true,TRAP
+true,false,false,true,TRAP
+true,false,true,false,TRAP
+false,false,true,true,GOAL

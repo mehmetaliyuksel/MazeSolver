@@ -1,20 +1,20 @@
 import java.util.*;
 
-public class BreadthFirstSearch extends SearchingAlgorithm {
+public class DepthFirstSearch extends SearchingAlgorithm {
 
-    public BreadthFirstSearch(Maze maze) {
+    public DepthFirstSearch(Maze maze) {
         super(maze);
-        this.frontier = new LinkedList<Node>();
+        this.frontier = new Stack<Node>();
 
         initializeSearch();
     }
 
     @Override
     public void search() {
-        LinkedList<Node> frontier = (LinkedList<Node>) this.frontier;
+        Stack<Node> frontier = (Stack<Node>) this.frontier;
 
         while (!frontier.isEmpty()) { 
-            Node currentNode = frontier.remove();
+            Node currentNode = frontier.pop();
             explored.add(currentNode.getState());
             //currentNode.increasePathCost();
 
@@ -23,10 +23,10 @@ public class BreadthFirstSearch extends SearchingAlgorithm {
                 break;
             }
 
-            //System.out.println(currentNode.getPath());
+            System.out.println(currentNode.getPath());
             currentNode.expand();
+            Collections.reverse(currentNode.getChildren());
             addChildrenToFrontier(currentNode);
         }
     }
-
 }

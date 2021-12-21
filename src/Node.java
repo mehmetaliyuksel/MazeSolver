@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Node {
+public class Node implements Comparable<Node> {
+
+    private static final int TRAP_COST = 10;
+    private static final int STEP_COST = 1;
 
     public static int numOfExpandedNodes;
 
@@ -32,12 +35,12 @@ public class Node {
         return builder.toString();
     }
 
-    public void increasePathCost(int cost) {
+    public void increasePathCost() {
         if (!Objects.isNull(parent)) {
-            if (state.getType().equals(TileType.BONUS))
-                this.pathCost = parent.getPathCost() - 8;
+            if (state.getType().equals(TileType.TRAP))
+                this.pathCost = parent.getPathCost() + TRAP_COST;
             else
-                this.pathCost = parent.getPathCost() + cost;
+                this.pathCost = parent.getPathCost() + STEP_COST;
         }
     }
 
@@ -55,6 +58,7 @@ public class Node {
 
         nextState = this.getState().getNorth();
         this.addChildrenIfAvailable(nextState);
+
     }
 
     private void addChildrenIfAvailable(Tile nextState) {
@@ -102,5 +106,15 @@ public class Node {
 
     public void setDepth(int depth) {
         this.depth = depth;
+    }
+
+    @Override
+    public int compareTo(Node node) {
+        if (this.pathCost < node.pathCost)
+            return -1;
+        else if (this.pathCost > node.pathCost)
+            return 1;
+        else
+            return 0;
     }
 }
