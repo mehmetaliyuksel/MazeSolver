@@ -9,34 +9,13 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
         initializeSearch();
     }
 
-    // @Override
-    // public void search() {
-    //     Stack<Node> frontier = (Stack<Node>) this.frontier;
-
-    //     int depth = 1;
-    //     while (!frontier.isEmpty()) {
-    //         Node currentNode = frontier.pop();
-    //         explored.add(currentNode.getState());
-    //         DepthLimitedSearch(currentNode, depth);
-
-    //         if (currentNode.getDepth() == depth)
-    //             break;
-
-    //         // System.out.println(currentNode.getPath());
-    //         currentNode.expand();
-    //         addChildrenToFrontier(currentNode);
-    //         depth++;
-    //     }
-
-    // }
-
+    @Override
     public void search() {
         Stack<Node> frontier = (Stack<Node>) this.frontier;
         IDS:
-        for (int depth = 0; ; depth++) {
-            System.out.println("**********DEPTH************" + depth);
-            explored.clear();// = new HashSet<Tile>();
-            frontier.clear();// = new Stack<Node>();
+        for (int depth = 1; ; depth++) {
+            explored.clear();
+            frontier.clear();
             initializeSearch();
             
             while (!frontier.isEmpty()) {
@@ -54,28 +33,9 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
 
                 System.out.println(currentNode.getPath());
                 currentNode.expand();
-                Collections.reverse(currentNode.getChildren());
+                Collections.reverse(currentNode.getChildren()); // To obtain stack order 
                 addChildrenToFrontier(currentNode);
             }
         }
     }
-
-    // private Node DepthLimitedSearch(Node currentNode, int limit) {
-
-    //     if (currentNode.isGoal()) {
-    //         return currentNode;
-    //     } else if (currentNode.getDepth() == limit) {
-    //         return null;
-    //     } else {
-
-    //         for (Node child : currentNode.getChildren()) {
-    //             Node result = DepthLimitedSearch(child, limit);
-
-    //             if (!Objects.isNull(result))
-    //                 return result;
-    //         }
-    //     }
-
-    //     return null;
-    // }
 }
