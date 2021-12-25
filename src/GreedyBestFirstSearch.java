@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.PriorityQueue;
 
 public class GreedyBestFirstSearch extends SearchingAlgorithm {
 

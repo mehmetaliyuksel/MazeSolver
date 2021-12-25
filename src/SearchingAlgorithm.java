@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 public abstract class SearchingAlgorithm {
     private final Maze maze;

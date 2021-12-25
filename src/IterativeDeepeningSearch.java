@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Collections;
+import java.util.Stack;
 
 public class IterativeDeepeningSearch extends SearchingAlgorithm {
 
@@ -33,7 +34,7 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
                     continue;
 
                 currentNode.expand();
-                Collections.reverse(currentNode.getChildren()); // To obtain stack order 
+                Collections.reverse(currentNode.getChildren()); // To obtain stack order
                 addChildrenToFrontier(currentNode);
             }
         }
