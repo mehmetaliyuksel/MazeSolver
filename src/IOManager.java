@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class IOManager {
 
     private final String inputFile;
-    private final String outputFile;
 
-    public IOManager(String inputFile, String outputFile) {
+    public IOManager(String inputFile) {
         this.inputFile = inputFile;
-        this.outputFile = outputFile;
     }
 
     public Maze readFile() {
@@ -40,7 +38,7 @@ public class IOManager {
 
                 Tile currentTile = new Tile(columnCounter + 1, rowCounter + 1, tileType);
                 tiles[rowCounter][columnCounter] = currentTile;
-                
+
                 if (tileType == TileType.STARTING)
                     startingTile = currentTile;
                 else if (tileType == TileType.GOAL)

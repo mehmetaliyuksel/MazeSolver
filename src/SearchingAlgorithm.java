@@ -1,16 +1,17 @@
 import java.util.*;
 
 public abstract class SearchingAlgorithm {
-    private Maze maze;
+    private final Maze maze;
     protected Collection<Node> frontier;
     protected HashSet<Tile> explored;
     private int maxSizeOfFrontier;
+    private int insertionCounter;
 
     public abstract void search();
 
     public SearchingAlgorithm(Maze maze) {
         this.maze = maze;
-        this.explored = new HashSet<Tile>();
+        this.explored = new HashSet<>();
         Node.numOfExpandedNodes = 0;
         this.maxSizeOfFrontier = 1;
     }
@@ -23,11 +24,11 @@ public abstract class SearchingAlgorithm {
 
     protected void printResults(Node node) {
         System.out.println("Searching algorithm: " + this.getClass().getName());
-        System.out.println("Path Cost: " + node.getActualPathCost());
-        System.out.println("Number of expanded nodes: " + Node.numOfExpandedNodes);
-        System.out.println("The maximum size of the explored set: " + explored.size());
+        System.out.println("The cost of the solution: " + node.getActualPathCost());
+        System.out.println("The number of expanded nodes: " + Node.numOfExpandedNodes);
         System.out.println("The maximum size of the frontier: " + this.maxSizeOfFrontier);
-        System.out.println("Path: " + node.getPath());
+        System.out.println("The maximum size of the explored set: " + explored.size());
+        System.out.println("The solution path: " + node.getPath());
     }
 
     public void addChildrenToFrontier(Node currentNode) {
@@ -36,8 +37,8 @@ public abstract class SearchingAlgorithm {
         for (Node child : children) {
             if (!explored.contains(child.getState())) {
                 child.increasePathCost(this.getClass().getName());
+                child.setInsertionTimeStamp(this.insertionCounter++);
                 frontier.add(child);
-               
             }
         }
 

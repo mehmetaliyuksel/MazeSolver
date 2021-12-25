@@ -8,12 +8,14 @@ public class Node implements Comparable<Node> {
 
     public static int numOfExpandedNodes;
 
-    private Node parent;
-    private ArrayList<Node> children;
-    private Tile state;
-    private int depth;
+    private final Node parent;
+    private final ArrayList<Node> children;
+    private final Tile state;
+    private final int depth;
     private int actualPathCost;
     private int estimatedPathCost;
+    private int insertionTimeStamp;
+
 
     public Node(Node parent, int depth, Tile state) {
         this.parent = parent;
@@ -26,14 +28,16 @@ public class Node implements Comparable<Node> {
         Node node = this;
         ArrayList<String> path = new ArrayList<>();
         while (!Objects.isNull(node)) {
-            path.add("(" + node.getState().getX() + "," + node.getState().getY() + ")");
+            path.add("(" + node.getState().getX() + "," + node.getState().getY() + ") - ");
             node = node.getParent();
         }
+
         StringBuilder builder = new StringBuilder();
         for (int i = path.size() - 1; i >= 0; i--) {
             builder.append(path.get(i));
         }
-        return builder.toString();
+        String pathString = builder.toString();
+        return pathString.substring(0, pathString.length() - 2);
     }
 
     public void increasePathCost(String searchingAlgorithm) {
@@ -82,6 +86,10 @@ public class Node implements Comparable<Node> {
         }
     }
 
+    public void setInsertionTimeStamp(int insertionTimeStamp) {
+        this.insertionTimeStamp = insertionTimeStamp;
+    }
+
     public int getActualPathCost() {
         return actualPathCost;
     }
@@ -94,36 +102,16 @@ public class Node implements Comparable<Node> {
         return state;
     }
 
-    public void setState(Tile state) {
-        this.state = state;
-    }
-
-    public int getEstimatedPathCost() {
-        return estimatedPathCost;
-    }
-
     public Node getParent() {
         return parent;
-    }
-
-    public void setParent(Node parent) {
-        this.parent = parent;
     }
 
     public ArrayList<Node> getChildren() {
         return children;
     }
 
-    public void setChildren(ArrayList<Node> children) {
-        this.children = children;
-    }
-
     public int getDepth() {
         return depth;
-    }
-
-    public void setDepth(int depth) {
-        this.depth = depth;
     }
 
     @Override
@@ -132,27 +120,9 @@ public class Node implements Comparable<Node> {
             return -1;
         else if (this.estimatedPathCost > node.estimatedPathCost)
             return 1;
-        // else if (this.getParent().equals(getParent())) {
-        //     if (this.whereAmI() < node.whereAmI())
-        //         return -1;
-        //     else if (this.whereAmI() > node.whereAmI())
-        //         return 1;
-            
-        //     return 0;
-        //     }
-        else 
-            return 0;
+        else if (this.insertionTimeStamp < node.insertionTimeStamp)
+            return -1;
+        else
+            return 1;
     }
-
-    // public int whereAmI() {
-    //     if (this.getParent().getState().getEast() == this.getState())
-    //         return 4;
-    //     else if (this.getParent().getState().getSouth() == this.getState())
-    //         return 3;
-    //     else if (this.getParent().getState().getWest() == this.getState())
-    //         return 2;
-    //     else
-    //         return 1;
-    // }
-
 }

@@ -23,7 +23,6 @@ public class DepthFirstSearch extends SearchingAlgorithm {
                 break;
             }
 
-            //System.out.println(currentNode.getPath());
             currentNode.expand();
             Collections.reverse(currentNode.getChildren());
             addChildrenToFrontier(currentNode);

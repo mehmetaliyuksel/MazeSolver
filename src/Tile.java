@@ -1,22 +1,16 @@
 import java.util.List;
 
-// state : tile
-// action
-// action (tile): List<action>
-
 public class Tile {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private int manhattanDistanceToNearestGoal; // heuristic
-    private TileType type;
+    private final TileType type;
 
     private Tile east;
     private Tile south;
     private Tile west;
     private Tile north;
-
-    private boolean visited;
 
     public Tile(int x, int y, TileType type) {
         this.type = type;
@@ -80,14 +74,6 @@ public class Tile {
 
     public void setNorth(Tile north) {
         this.north = north;
-    }
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
     }
 
     public void setManhattanDistanceToNearestGoal(List<Tile> goalTiles) {

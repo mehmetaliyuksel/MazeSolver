@@ -4,7 +4,7 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
 
     public IterativeDeepeningSearch(Maze maze) {
         super(maze);
-        this.frontier = new Stack<Node>();
+        this.frontier = new Stack<>();
 
         initializeSearch();
     }
@@ -32,7 +32,6 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
                 if (currentNode.getDepth() == depth) // if limit depth reached then cut the tree and continue with sibling
                     continue;
 
-                //System.out.println(currentNode.getPath());
                 currentNode.expand();
                 Collections.reverse(currentNode.getChildren()); // To obtain stack order 
                 addChildrenToFrontier(currentNode);

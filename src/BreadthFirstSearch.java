@@ -4,7 +4,7 @@ public class BreadthFirstSearch extends SearchingAlgorithm {
 
     public BreadthFirstSearch(Maze maze) {
         super(maze);
-        this.frontier = new LinkedList<Node>();
+        this.frontier = new LinkedList<>();
 
         initializeSearch();
     }
@@ -13,7 +13,7 @@ public class BreadthFirstSearch extends SearchingAlgorithm {
     public void search() {
         LinkedList<Node> frontier = (LinkedList<Node>) this.frontier;
 
-        while (!frontier.isEmpty()) { 
+        while (!frontier.isEmpty()) {
             Node currentNode = frontier.remove();
 
             explored.add(currentNode.getState());
@@ -23,7 +23,6 @@ public class BreadthFirstSearch extends SearchingAlgorithm {
                 break;
             }
 
-            System.out.println(currentNode.getPath());
             currentNode.expand();
             addChildrenToFrontier(currentNode);
         }
