@@ -1,9 +1,9 @@
 import java.util.*;
 
-public class UniformCostSearch extends SearchingAlgorithm {
+public class GreedyBestFirstSearch extends SearchingAlgorithm {
     int a;
 
-    public UniformCostSearch(Maze maze) {
+    public GreedyBestFirstSearch(Maze maze) {
         super(maze);
         this.frontier = new PriorityQueue<Node>();
         PriorityQueue<Integer> test = new PriorityQueue<Integer>(Collections.reverseOrder());

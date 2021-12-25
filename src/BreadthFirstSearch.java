@@ -15,15 +15,15 @@ public class BreadthFirstSearch extends SearchingAlgorithm {
 
         while (!frontier.isEmpty()) { 
             Node currentNode = frontier.remove();
+
             explored.add(currentNode.getState());
-            //currentNode.increasePathCost();
 
             if (currentNode.isGoal()) {
                 printResults(currentNode);
                 break;
             }
 
-            //System.out.println(currentNode.getPath());
+            System.out.println(currentNode.getPath());
             currentNode.expand();
             addChildrenToFrontier(currentNode);
         }

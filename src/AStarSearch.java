@@ -1,9 +1,9 @@
 import java.util.*;
 
-public class UniformCostSearch extends SearchingAlgorithm {
+public class AStarSearch extends SearchingAlgorithm {
     int a;
 
-    public UniformCostSearch(Maze maze) {
+    public AStarSearch(Maze maze) {
         super(maze);
         this.frontier = new PriorityQueue<Node>();
         PriorityQueue<Integer> test = new PriorityQueue<Integer>(Collections.reverseOrder());
@@ -23,14 +23,12 @@ public class UniformCostSearch extends SearchingAlgorithm {
         PriorityQueue<Node> frontier = (PriorityQueue<Node>) this.frontier;
         while (!frontier.isEmpty()) {
             Node currentNode = frontier.remove();
-
             explored.add(currentNode.getState());
 
             if (currentNode.isGoal()) {
                 printResults(currentNode);
                 break;
-            }
-
+            }      
             System.out.println(currentNode.getPath());
             currentNode.expand();
             addChildrenToFrontier(currentNode);

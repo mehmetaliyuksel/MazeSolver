@@ -9,8 +9,12 @@ public class Main {
         DepthFirstSearch dfs = new DepthFirstSearch(maze);
         dfs.search();
         UniformCostSearch ucs = new UniformCostSearch(maze);
-         ucs.search();
+        ucs.search();
         IterativeDeepeningSearch ids = new IterativeDeepeningSearch(maze);
         ids.search();
+        GreedyBestFirstSearch gbs = new GreedyBestFirstSearch(maze);
+        gbs.search();
+        AStarSearch ass = new AStarSearch(maze);
+        ass.search();
     }
 }

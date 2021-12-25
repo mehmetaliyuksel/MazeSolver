@@ -12,7 +12,8 @@ public class Node implements Comparable<Node> {
     private ArrayList<Node> children;
     private Tile state;
     private int depth;
-    private int pathCost;
+    private int actualPathCost;
+    private int estimatedPathCost;
 
     public Node(Node parent, int depth, Tile state) {
         this.parent = parent;
@@ -35,13 +36,26 @@ public class Node implements Comparable<Node> {
         return builder.toString();
     }
 
-    public void increasePathCost() {
+    public void increasePathCost(String searchingAlgorithm) {
         if (!Objects.isNull(parent)) {
-            if (state.getType().equals(TileType.TRAP))
-                this.pathCost = parent.getPathCost() + TRAP_COST;
+            increaseActualPathCost();
+
+            if (searchingAlgorithm.equals(GreedyBestFirstSearch.class.getName()))
+                this.estimatedPathCost = this.getState().getManhattanDistanceToNearestGoal();
+            else if (searchingAlgorithm.equals(AStarSearch.class.getName()))
+                this.estimatedPathCost = this.actualPathCost + this.getState().getManhattanDistanceToNearestGoal();
             else
-                this.pathCost = parent.getPathCost() + STEP_COST;
+                this.estimatedPathCost = this.actualPathCost;
         }
+    }
+
+    private void increaseActualPathCost() {
+        int pathCost = 0;
+        if (state.getType().equals(TileType.TRAP))
+            pathCost = parent.getActualPathCost() + TRAP_COST;
+        else
+            pathCost = parent.getActualPathCost() + STEP_COST;
+        this.actualPathCost = pathCost;
     }
 
     public void expand() {
@@ -68,6 +82,10 @@ public class Node implements Comparable<Node> {
         }
     }
 
+    public int getActualPathCost() {
+        return actualPathCost;
+    }
+
     public boolean isGoal() {
         return state.getType().equals(TileType.GOAL);
     }
@@ -80,8 +98,8 @@ public class Node implements Comparable<Node> {
         this.state = state;
     }
 
-    public int getPathCost() {
-        return pathCost;
+    public int getEstimatedPathCost() {
+        return estimatedPathCost;
     }
 
     public Node getParent() {
@@ -110,11 +128,31 @@ public class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node node) {
-        if (this.pathCost < node.pathCost)
+        if (this.estimatedPathCost < node.estimatedPathCost)
             return -1;
-        else if (this.pathCost > node.pathCost)
+        else if (this.estimatedPathCost > node.estimatedPathCost)
             return 1;
-        else
+        // else if (this.getParent().equals(getParent())) {
+        //     if (this.whereAmI() < node.whereAmI())
+        //         return -1;
+        //     else if (this.whereAmI() > node.whereAmI())
+        //         return 1;
+            
+        //     return 0;
+        //     }
+        else 
             return 0;
     }
+
+    // public int whereAmI() {
+    //     if (this.getParent().getState().getEast() == this.getState())
+    //         return 4;
+    //     else if (this.getParent().getState().getSouth() == this.getState())
+    //         return 3;
+    //     else if (this.getParent().getState().getWest() == this.getState())
+    //         return 2;
+    //     else
+    //         return 1;
+    // }
+
 }

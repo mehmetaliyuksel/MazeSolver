@@ -1,12 +1,23 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Maze {
     private Tile startingTile;
-    private Tile goalTile;
     private Tile[][] tiles;
+    private List<Tile> goalTiles;
 
-    public Maze(Tile startingTile, Tile goalTile, Tile[][] tiles) {
+    public Maze(Tile startingTile, List<Tile> goalTiles, Tile[][] tiles) {
         this.startingTile = startingTile;
-        this.goalTile = goalTile;
         this.tiles = tiles;
+        this.goalTiles = goalTiles;
+
+        getTilesAs1DList()
+                .forEach(tile -> tile.setManhattanDistanceToNearestGoal(goalTiles));
+    }
+
+    public List<Tile> getGoalTiles() {
+        return goalTiles;
     }
 
     public int getMazeSize() {
@@ -17,25 +28,13 @@ public class Maze {
         return startingTile;
     }
 
-    public void setStartingTile(Tile startingTile) {
-        this.startingTile = startingTile;
-    }
-
-    public Tile getGoalTile() {
-        return goalTile;
-    }
-
-    public void setGoalTile(Tile goalTile) {
-        this.goalTile = goalTile;
-    }
-
     public Tile[][] getTiles() {
         return tiles;
     }
 
-    public void setTiles(Tile[][] tiles) {
-        this.tiles = tiles;
+    private List<Tile> getTilesAs1DList() {
+        return Arrays.stream(this.tiles) // 'tiles' is two-dimensional
+                .flatMap(Arrays::stream)
+                .collect(Collectors.toList());
     }
-
-
 }

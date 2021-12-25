@@ -1,5 +1,7 @@
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IOManager {
@@ -22,7 +24,8 @@ public class IOManager {
             int numOfColumns = Integer.parseInt(firstLine[1]);
 
             Tile[][] tiles = new Tile[numOfRows][numOfColumns];
-            Tile startingTile = null, goalTile = null;
+            List<Tile> goalTiles = new ArrayList<Tile>();
+            Tile startingTile = null;
             boolean isWestReachableForCurrentTile, isNorthReachableForCurrentTile, isEastReachableForWestTile = false;
             boolean[] isSouthReachableForNorthTiles = new boolean[numOfColumns];
 
@@ -37,11 +40,11 @@ public class IOManager {
 
                 Tile currentTile = new Tile(columnCounter + 1, rowCounter + 1, tileType);
                 tiles[rowCounter][columnCounter] = currentTile;
-
+                
                 if (tileType == TileType.STARTING)
                     startingTile = currentTile;
                 else if (tileType == TileType.GOAL)
-                    goalTile = currentTile;
+                    goalTiles.add(currentTile);
 
                 if (columnCounter != 0) {
                     Tile westTile = tiles[rowCounter][columnCounter - 1];
@@ -67,13 +70,12 @@ public class IOManager {
                 }
             }
             scanner.close();
-            return new Maze(startingTile, goalTile, tiles);
+            return new Maze(startingTile, goalTiles, tiles);
 
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
             return null;
         }
-
     }
 }

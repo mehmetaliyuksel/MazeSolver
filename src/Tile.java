@@ -1,3 +1,5 @@
+import java.util.List;
+
 // state : tile
 // action
 // action (tile): List<action>
@@ -6,6 +8,7 @@ public class Tile {
 
     private int x;
     private int y;
+    private int manhattanDistanceToNearestGoal; // heuristic
     private TileType type;
 
     private Tile east;
@@ -15,8 +18,7 @@ public class Tile {
 
     private boolean visited;
 
-
-    public Tile(int x, int y, TileType type){
+    public Tile(int x, int y, TileType type) {
         this.type = type;
         this.x = x;
         this.y = y;
@@ -60,6 +62,10 @@ public class Tile {
         return north;
     }
 
+    public int getManhattanDistanceToNearestGoal() {
+        return manhattanDistanceToNearestGoal;
+    }
+
     public void setEast(Tile east) {
         this.east = east;
     }
@@ -75,6 +81,7 @@ public class Tile {
     public void setNorth(Tile north) {
         this.north = north;
     }
+
     public boolean isVisited() {
         return visited;
     }
@@ -83,5 +90,17 @@ public class Tile {
         this.visited = visited;
     }
 
-    
+    public void setManhattanDistanceToNearestGoal(List<Tile> goalTiles) {
+        int manhattanDistanceToNearestGoal = Integer.MAX_VALUE;
+
+        for (Tile goalTile : goalTiles) {
+            int currentDistance = Math.abs(goalTile.getX() - this.x) + Math.abs(goalTile.getY() - this.y);
+
+            if (currentDistance < manhattanDistanceToNearestGoal)
+                manhattanDistanceToNearestGoal = currentDistance;
+        }
+
+        this.manhattanDistanceToNearestGoal = manhattanDistanceToNearestGoal;
+    }
+
 }

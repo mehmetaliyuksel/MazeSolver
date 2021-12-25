@@ -15,15 +15,15 @@ public class DepthFirstSearch extends SearchingAlgorithm {
 
         while (!frontier.isEmpty()) { 
             Node currentNode = frontier.pop();
-            explored.add(currentNode.getState());
-            //currentNode.increasePathCost();
 
+            explored.add(currentNode.getState());
+            
             if (currentNode.isGoal()) {
                 printResults(currentNode);
                 break;
             }
 
-            System.out.println(currentNode.getPath());
+            //System.out.println(currentNode.getPath());
             currentNode.expand();
             Collections.reverse(currentNode.getChildren());
             addChildrenToFrontier(currentNode);

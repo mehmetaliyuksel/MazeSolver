@@ -23,7 +23,7 @@ public abstract class SearchingAlgorithm {
 
     protected void printResults(Node node) {
         System.out.println("Searching algorithm: " + this.getClass().getName());
-        System.out.println("Path Cost: " + node.getPathCost());
+        System.out.println("Path Cost: " + node.getActualPathCost());
         System.out.println("Number of expanded nodes: " + Node.numOfExpandedNodes);
         System.out.println("The maximum size of the explored set: " + explored.size());
         System.out.println("The maximum size of the frontier: " + this.maxSizeOfFrontier);
@@ -35,10 +35,9 @@ public abstract class SearchingAlgorithm {
 
         for (Node child : children) {
             if (!explored.contains(child.getState())) {
-                child.increasePathCost();
+                child.increasePathCost(this.getClass().getName());
                 frontier.add(child);
                
-                
             }
         }
 

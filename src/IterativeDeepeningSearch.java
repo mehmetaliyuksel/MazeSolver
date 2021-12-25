@@ -12,6 +12,7 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
     @Override
     public void search() {
         Stack<Node> frontier = (Stack<Node>) this.frontier;
+
         IDS:
         for (int depth = 1; ; depth++) {
             explored.clear();
@@ -31,7 +32,7 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
                 if (currentNode.getDepth() == depth) // if limit depth reached then cut the tree and continue with sibling
                     continue;
 
-                System.out.println(currentNode.getPath());
+                //System.out.println(currentNode.getPath());
                 currentNode.expand();
                 Collections.reverse(currentNode.getChildren()); // To obtain stack order 
                 addChildrenToFrontier(currentNode);
