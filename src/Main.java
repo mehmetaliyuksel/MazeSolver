@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        IOManager ioManager = new IOManager("input.txt");
+        IOManager ioManager = new IOManager("Example_Input.txt");
         Maze maze = ioManager.readFile();
         BreadthFirstSearch bfs = new BreadthFirstSearch(maze);
         bfs.search();
