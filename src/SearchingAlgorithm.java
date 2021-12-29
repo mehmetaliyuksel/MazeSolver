@@ -37,7 +37,8 @@ public abstract class SearchingAlgorithm {
         ArrayList<Node> children = currentNode.getChildren();
 
         for (Node child : children) {
-            if (!explored.contains(child.getState())) {
+            if (frontier.stream().noneMatch(node -> node.getState().equals(child.getState()))
+                   && !explored.contains(child.getState())) {
                 child.increasePathCost(this.getClass().getName());
                 child.setInsertionTimeStamp(this.insertionCounter++);
                 frontier.add(child);

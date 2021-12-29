@@ -13,19 +13,24 @@ public class BreadthFirstSearch extends SearchingAlgorithm {
     public void search() {
         LinkedList<Node> frontier = (LinkedList<Node>) this.frontier;
 
+        boolean isFailure = true;
         while (!frontier.isEmpty()) {
             Node currentNode = frontier.remove();
 
-            explored.add(currentNode.getState());
-
             if (currentNode.isGoal()) {
                 printResults(currentNode);
+                isFailure = false;
                 break;
             }
+
+            explored.add(currentNode.getState());
 
             currentNode.expand();
             addChildrenToFrontier(currentNode);
         }
+
+        if (isFailure)
+            System.out.println("Failure! Could not find the goal state!");
     }
 
 }

@@ -14,19 +14,24 @@ public class DepthFirstSearch extends SearchingAlgorithm {
     public void search() {
         Stack<Node> frontier = (Stack<Node>) this.frontier;
 
+        boolean isFailure = true;
         while (!frontier.isEmpty()) { 
             Node currentNode = frontier.pop();
 
-            explored.add(currentNode.getState());
-            
             if (currentNode.isGoal()) {
                 printResults(currentNode);
+                isFailure = false;
                 break;
             }
+
+            explored.add(currentNode.getState());
 
             currentNode.expand();
             Collections.reverse(currentNode.getChildren());
             addChildrenToFrontier(currentNode);
         }
+
+        if (isFailure)
+            System.out.println("Failure! Could not find the goal state!");
     }
 }

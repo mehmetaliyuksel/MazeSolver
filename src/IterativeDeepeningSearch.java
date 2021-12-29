@@ -14,6 +14,7 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
     public void search() {
         Stack<Node> frontier = (Stack<Node>) this.frontier;
 
+        boolean isFailure = true;
         IDS:
         for (int depth = 1; ; depth++) {
             explored.clear();
@@ -23,12 +24,13 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
             while (!frontier.isEmpty()) {
                 Node currentNode = frontier.pop();
 
-                explored.add(currentNode.getState());
-
                 if (currentNode.isGoal()) {
                     printResults(currentNode);
+                    isFailure = false;
                     break IDS;
                 }
+
+                explored.add(currentNode.getState());
 
                 if (currentNode.getDepth() == depth) // if limit depth reached then cut the tree and continue with sibling
                     continue;
@@ -38,5 +40,8 @@ public class IterativeDeepeningSearch extends SearchingAlgorithm {
                 addChildrenToFrontier(currentNode);
             }
         }
+
+        if (isFailure)
+            System.out.println("Failure! Could not find the goal state!");
     }
 }
